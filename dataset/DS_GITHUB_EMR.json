@@ -1,0 +1,31 @@
+{
+	"name": "DS_GITHUB_EMR",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_GITHUB_HTTP",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_relativePath": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().p_relativePath",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": null
+		},
+		"schema": []
+	}
+}

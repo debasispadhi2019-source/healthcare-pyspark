@@ -1,0 +1,15 @@
+{
+	"name": "adf-emr-healthcare",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6cd9be5b-8a5e-42b1-bcfc-b6ef3983f293",
+		"tenantId": "b8a6bae8-ac1d-4374-9247-2912060cd297"
+	}
+}

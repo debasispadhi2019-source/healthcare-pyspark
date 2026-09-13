@@ -1,12 +1,12 @@
 {
-	"name": "DS_GITHUB_EMR",
+	"name": "DS_ADLS_RAW_EMR",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_GITHUB_HTTP",
+			"referenceName": "LS_ADLS_EMR",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"p_relativePath": {
+			"p_filename": {
 				"type": "string"
 			}
 		},
@@ -14,17 +14,18 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "HttpServerLocation",
-				"relativeUrl": {
-					"value": "@concat(\n'debasispadhi2019-source/healthcare-pyspark/main/',\ndataset().p_relativePath\n)",
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().p_filename",
 					"type": "Expression"
-				}
+				},
+				"folderPath": "emr",
+				"fileSystem": "raw"
 			},
 			"columnDelimiter": ",",
-			"rowDelimiter": "\n",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
-			"quoteChar": null
+			"quoteChar": "\""
 		},
 		"schema": []
 	}

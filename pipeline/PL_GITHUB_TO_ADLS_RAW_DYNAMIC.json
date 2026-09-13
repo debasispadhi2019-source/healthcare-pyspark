@@ -1,0 +1,48 @@
+{
+	"name": "PL_GITHUB_TO_ADLS_RAW_DYNAMIC",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get_GitHub_Files",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://api.github.com/repos/debasispadhi2019-source/healthcare-pyspark/contents/datasets?ref=main"
+				}
+			},
+			{
+				"name": "Filter_CSV_Files",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Get_GitHub_Files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@json(activity('Get_GitHub_Files').output.Response)",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@and(\n    equals(item().type,'file'),\n    endsWith(item().name,'.csv')\n)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}

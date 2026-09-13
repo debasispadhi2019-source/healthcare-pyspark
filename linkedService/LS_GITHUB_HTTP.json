@@ -1,0 +1,13 @@
+{
+	"name": "LS_GITHUB_HTTP",
+	"properties": {
+		"description": "LS_GITHUB_HTTP",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://github.com/debasispadhi2019-source",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

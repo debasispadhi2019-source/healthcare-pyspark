@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-emr-healthcare"
+		},
+		"LS_ADLS_EMR_accountKey": {
+			"value": ""
+		},
+		"LS_ADLS_EMR_properties_typeProperties_url": {
+			"value": "https://rgemrhealthcare.dfs.core.windows.net/"
+		},
+		"LS_GITHUB_HTTP_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

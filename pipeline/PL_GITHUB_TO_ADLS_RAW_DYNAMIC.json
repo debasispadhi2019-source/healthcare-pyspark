@@ -111,7 +111,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"p_relativePath": {
-											"value": "@concat(\n    'debasispadhi2019-source/healthcare-pyspark/main/',\n    item().path\n)",
+											"value": "@and(\n    equals(item().type, 'file'),\n    endsWith(item().name, '.csv')\n)",
 											"type": "Expression"
 										}
 									}

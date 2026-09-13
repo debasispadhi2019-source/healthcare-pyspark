@@ -16,7 +16,7 @@
 			"location": {
 				"type": "HttpServerLocation",
 				"relativeUrl": {
-					"value": "@concat(\n'debasispadhi2019-source/healthcare-pyspark/main/',\ndataset().p_relativePath\n)",
+					"value": "@dataset().p_relativePath",
 					"type": "Expression"
 				}
 			},

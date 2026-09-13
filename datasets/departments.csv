@@ -1,0 +1,17 @@
+DeptID,Name,Location,Specialization
+D001,Cardiology,Block E,Cardiology
+D002,Neurology,Block B,Neurology
+D003,Orthopedics,Block A,Orthopedics
+D004,Pediatrics,Block C,Pediatrics
+D005,Oncology,Block E,Oncology
+D006,Dermatology,Block D,Dermatology
+D007,General Medicine,Block D,General Medicine
+D008,Emergency,Block D,Emergency
+D009,Radiology,Block C,Radiology
+D010,Gastroenterology,Block E,Gastroenterology
+D011,Nephrology,Block A,Nephrology
+D012,Urology,Block E,Urology
+D013,Psychiatry,Block D,Psychiatry
+D014,ENT,Block B,ENT
+D015,Ophthalmology,Block A,Ophthalmology
+D016,Pulmonology,Block A,Pulmonology

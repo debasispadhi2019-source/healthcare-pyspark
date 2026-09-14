@@ -8,6 +8,12 @@
 		"parameters": {
 			"file_name": {
 				"type": "string"
+			},
+			"dir": {
+				"type": "string"
+			},
+			"file_sys": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
@@ -19,8 +25,14 @@
 					"value": "@dataset().file_name",
 					"type": "Expression"
 				},
-				"folderPath": "emr",
-				"fileSystem": "bronze"
+				"folderPath": {
+					"value": "@dataset().dir",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().file_sys",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

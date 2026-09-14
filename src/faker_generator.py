@@ -500,6 +500,8 @@ transaction_df.toPandas().to_csv(
 print("transactions.csv generated")
 
 
+
+
 # =========================================================
 # STOP SPARK
 # =========================================================

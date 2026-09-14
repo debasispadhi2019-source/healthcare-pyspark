@@ -58,116 +58,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_ADLS_RAW_EMR')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_ADLS_EMR",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"p_filename": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().p_filename",
-							"type": "Expression"
-						},
-						"folderPath": "emr",
-						"fileSystem": "raw"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_EMR')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_GITHUB_EMR')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_GITHUB_HTTP",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"p_relativePath": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation",
-						"relativeUrl": {
-							"value": "@dataset().p_relativePath",
-							"type": "Expression"
-						}
-					},
-					"columnDelimiter": ",",
-					"rowDelimiter": "\n",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": null
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_GITHUB_HTTP')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_ADLS_RAW_EMR_FOLDER')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_ADLS_EMR",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"file_name": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().file_name",
-							"type": "Expression"
-						},
-						"folderPath": "emr",
-						"fileSystem": "raw"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_EMR')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/DS_ADLS_RAW_BRONZE_FOLDER')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -179,7 +69,16 @@
 				"parameters": {
 					"file_name": {
 						"type": "string"
+					},
+					"dir": {
+						"type": "string"
+					},
+					"file_sys": {
+						"type": "string"
 					}
+				},
+				"folder": {
+					"name": "RAW-BRONZE"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -190,8 +89,14 @@
 							"value": "@dataset().file_name",
 							"type": "Expression"
 						},
-						"folderPath": "emr",
-						"fileSystem": "bronze"
+						"folderPath": {
+							"value": "@dataset().dir",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().file_sys",
+							"type": "Expression"
+						}
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -222,6 +127,116 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_RAW_EMR')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_EMR",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"p_filename": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "GIT--RAW"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().p_filename",
+							"type": "Expression"
+						},
+						"folderPath": "emr",
+						"fileSystem": "raw"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_EMR')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_RAW_EMR_FOLDER')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_EMR",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "RAW-BRONZE"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "emr",
+						"fileSystem": "raw"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_EMR')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_GITHUB_EMR')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_GITHUB_HTTP",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"p_relativePath": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "GIT--RAW"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": {
+							"value": "@dataset().p_relativePath",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": null
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_GITHUB_HTTP')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_GITHUB_TO_ADLS_RAW_DYNAMIC')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -242,12 +257,15 @@
 						"typeProperties": {
 							"method": "GET",
 							"headers": {},
-							"url": "https://api.github.com/repos/debasispadhi2019-source/healthcare-pyspark/contents/datasets?ref=main"
+							"url": {
+								"value": "@pipeline().parameters.url",
+								"type": "Expression"
+							}
 						}
 					},
 					{
-						"name": "Filter_CSV_Files",
-						"type": "Filter",
+						"name": "ForEach_GitHub_CSV",
+						"type": "ForEach",
 						"dependsOn": [
 							{
 								"activity": "Get_GitHub_Files",
@@ -260,29 +278,6 @@
 						"typeProperties": {
 							"items": {
 								"value": "@json(activity('Get_GitHub_Files').output.Response)",
-								"type": "Expression"
-							},
-							"condition": {
-								"value": "@and(\n    equals(item().type,'file'),\n    endsWith(item().name,'.csv')\n)",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "ForEach_GitHub_CSV",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Filter_CSV_Files",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Filter_CSV_Files').output.value",
 								"type": "Expression"
 							},
 							"isSequential": true,
@@ -363,6 +358,12 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
+				"parameters": {
+					"url": {
+						"type": "string",
+						"defaultValue": "https://api.github.com/repos/debasispadhi2019-source/healthcare-pyspark/contents/datasets"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -377,7 +378,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Get Metadata1",
+						"name": "Get_Metadata_Raw_EMR",
 						"type": "GetMetadata",
 						"dependsOn": [],
 						"policy": {
@@ -392,12 +393,7 @@
 							"dataset": {
 								"referenceName": "DS_ADLS_RAW_EMR_FOLDER",
 								"type": "DatasetReference",
-								"parameters": {
-									"file_name": {
-										"value": "@pipeline().parameters.file",
-										"type": "Expression"
-									}
-								}
+								"parameters": {}
 							},
 							"fieldList": [
 								"childItems"
@@ -412,11 +408,11 @@
 						}
 					},
 					{
-						"name": "ForEach1",
+						"name": "ForEach_Raw_File",
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Get Metadata1",
+								"activity": "Get_Metadata_Raw_EMR",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -425,13 +421,13 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Get Metadata1').output.childItems",
+								"value": "@activity('Get_Metadata_Raw_EMR').output.childItems",
 								"type": "Expression"
 							},
 							"isSequential": true,
 							"activities": [
 								{
-									"name": "Copy data1",
+									"name": "Copy_Raw_To_Bronze",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -477,13 +473,15 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "DS_ADLS_RAW_EMR_FOLDER",
+											"referenceName": "DS_ADLS_RAW_BRONZE_FOLDER",
 											"type": "DatasetReference",
 											"parameters": {
 												"file_name": {
 													"value": "@item().name",
 													"type": "Expression"
-												}
+												},
+												"dir": "emr",
+												"file_sys": "raw"
 											}
 										}
 									],
@@ -495,7 +493,9 @@
 												"file_name": {
 													"value": "@item().name",
 													"type": "Expression"
-												}
+												},
+												"dir": "emr",
+												"file_sys": "bronze"
 											}
 										}
 									]
@@ -507,16 +507,69 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
-				"parameters": {
-					"file": {
-						"type": "string"
-					}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_ADLS_RAW_EMR_FOLDER')]",
 				"[concat(variables('factoryId'), '/datasets/DS_ADLS_RAW_BRONZE_FOLDER')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FINAL-GIT-BRONZ')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "PL_GITHUB_TO_ADLS_RAW_DYNAMIC",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PL_GITHUB_TO_ADLS_RAW_DYNAMIC",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "PL_RAW_TO_BRONZE",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "PL_GITHUB_TO_ADLS_RAW_DYNAMIC",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PL_RAW_TO_BRONZE",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_GITHUB_TO_ADLS_RAW_DYNAMIC')]",
+				"[concat(variables('factoryId'), '/pipelines/PL_RAW_TO_BRONZE')]"
 			]
 		}
 	]

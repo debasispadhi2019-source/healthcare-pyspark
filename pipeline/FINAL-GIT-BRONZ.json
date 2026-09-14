@@ -1,0 +1,47 @@
+{
+	"name": "FINAL-GIT-BRONZ",
+	"properties": {
+		"activities": [
+			{
+				"name": "PL_GITHUB_TO_ADLS_RAW_DYNAMIC",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_GITHUB_TO_ADLS_RAW_DYNAMIC",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "PL_RAW_TO_BRONZE",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "PL_GITHUB_TO_ADLS_RAW_DYNAMIC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_RAW_TO_BRONZE",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": []
+	}
+}

@@ -16,12 +16,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"method": "GET",
-					"url": "https://api.github.com/repos/debasispadhi2019-source/healthcare-pyspark/contents/datasets?ref=main"
+					"url": {
+						"value": "@pipeline().parameters.url",
+						"type": "Expression"
+					}
 				}
 			},
 			{
-				"name": "Filter_CSV_Files",
-				"type": "Filter",
+				"name": "ForEach_GitHub_CSV",
+				"type": "ForEach",
 				"dependsOn": [
 					{
 						"activity": "Get_GitHub_Files",
@@ -34,29 +37,6 @@
 				"typeProperties": {
 					"items": {
 						"value": "@json(activity('Get_GitHub_Files').output.Response)",
-						"type": "Expression"
-					},
-					"condition": {
-						"value": "@and(\n    equals(item().type,'file'),\n    endsWith(item().name,'.csv')\n)",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "ForEach_GitHub_CSV",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Filter_CSV_Files",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Filter_CSV_Files').output.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -134,6 +114,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"url": {
+				"type": "string",
+				"defaultValue": "https://api.github.com/repos/debasispadhi2019-source/healthcare-pyspark/contents/datasets"
+			}
+		},
 		"annotations": []
 	}
 }

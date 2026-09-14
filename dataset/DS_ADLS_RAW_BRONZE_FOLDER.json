@@ -16,6 +16,9 @@
 				"type": "string"
 			}
 		},
+		"folder": {
+			"name": "RAW-BRONZE"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

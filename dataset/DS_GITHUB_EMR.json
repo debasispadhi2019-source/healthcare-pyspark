@@ -10,6 +10,9 @@
 				"type": "string"
 			}
 		},
+		"folder": {
+			"name": "GIT--RAW"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

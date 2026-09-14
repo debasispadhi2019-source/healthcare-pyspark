@@ -5,6 +5,9 @@
 			"referenceName": "LS_ADLS_EMR",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "RAW-BRONZE"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

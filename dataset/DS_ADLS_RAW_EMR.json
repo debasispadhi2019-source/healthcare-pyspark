@@ -22,8 +22,8 @@
 					"value": "@dataset().p_filename",
 					"type": "Expression"
 				},
-				"folderPath": "emr",
-				"fileSystem": "raw"
+				"folderPath": "raw",
+				"fileSystem": "data"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

@@ -152,8 +152,8 @@
 							"value": "@dataset().p_filename",
 							"type": "Expression"
 						},
-						"folderPath": "emr",
-						"fileSystem": "raw"
+						"folderPath": "raw",
+						"fileSystem": "data"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -183,8 +183,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"folderPath": "emr",
-						"fileSystem": "raw"
+						"folderPath": "raw",
+						"fileSystem": "data"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -400,6 +400,7 @@
 							],
 							"storeSettings": {
 								"type": "AzureBlobFSReadSettings",
+								"recursive": true,
 								"enablePartitionDiscovery": false
 							},
 							"formatSettings": {
@@ -480,8 +481,8 @@
 													"value": "@item().name",
 													"type": "Expression"
 												},
-												"dir": "emr",
-												"file_sys": "raw"
+												"dir": "raw",
+												"file_sys": "data"
 											}
 										}
 									],
@@ -494,8 +495,8 @@
 													"value": "@item().name",
 													"type": "Expression"
 												},
-												"dir": "emr",
-												"file_sys": "bronze"
+												"dir": "bronze",
+												"file_sys": "data"
 											}
 										}
 									]
